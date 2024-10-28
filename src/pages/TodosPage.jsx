@@ -17,7 +17,7 @@ const TodosPage = () => {
         ))}
       </ul>
       <Link to="/todos/new" className="main-link">
-        Создать задачу
+        Новая задача
       </Link>
     </div>
   )
