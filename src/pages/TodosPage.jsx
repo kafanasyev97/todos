@@ -3,6 +3,8 @@ import { useGetTodosQuery } from '../redux/todosApi'
 
 const TodosPage = () => {
   const { data = [], isLoading } = useGetTodosQuery()
+  console.log('fffffffffffff')
+
   if (isLoading) return <h1>Lox</h1>
   if (!data) return <h1>Список задач пуст</h1>
 
