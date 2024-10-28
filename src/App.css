@@ -3,3 +3,75 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+html {
+  box-sizing: border-box;
+  /* height: 100%; */
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background-color: inherit;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* .main-div {
+  margin-bottom: 40px;
+} */
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.elem {
+  border: 1px solid rgb(102, 98, 98);
+  border-radius: 5px;
+  padding: 8px;
+  background-color: rgb(240, 228, 228);
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-link {
+  background-color: rgb(124, 223, 223);
+  padding: 12px;
+  border-radius: 7px;
+}
