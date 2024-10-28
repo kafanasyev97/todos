@@ -1,21 +1,31 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { useForm, Controller } from 'react-hook-form'
 import 'react-datepicker/dist/react-datepicker.css'
-import { useState } from 'react'
 import { ru } from 'date-fns/locale'
 import { registerLocale } from 'react-datepicker'
 import Input from '../components/ui/Input'
-import { useCreateTodoMutation } from '../redux/todosApi'
+import {
+  useCreateTodoMutation,
+  useGetTodoByIdQuery,
+  useUpdateTodoMutation,
+} from '../redux/todosApi'
+import { useEffect } from 'react'
 
 registerLocale('ru', ru)
 
 const NewTodoPage = () => {
+  const { id } = useParams()
+  const {
+    data: todo,
+    isSuccess,
+    isLoading,
+  } = useGetTodoByIdQuery(id, { skip: !id })
   const [createTodo] = useCreateTodoMutation()
+  const [updateTodo] = useUpdateTodoMutation()
   const navigate = useNavigate()
-  const [selectedDate, setSelectedDate] = useState(null)
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
       title: '',
       description: '',
@@ -23,9 +33,22 @@ const NewTodoPage = () => {
     },
   })
 
+  useEffect(() => {
+    if (isSuccess && todo) {
+      setValue('title', todo.title)
+      setValue('description', todo.description)
+      setValue('dueDate', new Date(todo.dueDate)) // Преобразуем дату в объект Date
+    }
+  }, [isSuccess, todo, setValue])
+  if (isLoading) return <h1>Dibil</h1>
+
   const onSubmit = (data) => {
+    if (id) {
+      updateTodo(id, data).unwrap()
+    } else {
+      createTodo(data).unwrap()
+    }
     console.log(data)
-    createTodo(data)
     navigate('/todos')
   }
 

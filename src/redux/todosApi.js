@@ -22,6 +22,10 @@ export const todosApi = createApi({
           : ['Todos'],
     }),
 
+    getTodoById: build.query({
+      query: (id) => `api/todos/${id}`,
+    }),
+
     createTodo: build.mutation({
       query: (body) => ({
         url: 'api/todos',
@@ -29,32 +33,38 @@ export const todosApi = createApi({
         body,
       }),
       invalidatesTags: ['Todos'], // TODO
+    }),
 
-      getUser: build.query({
-        query: (id) => `v1/user/view?id=${id}`,
+    updateTodo: build.mutation({
+      query: ({ id, data }) => ({
+        url: `api/todos/${id}`,
+        method: 'PUT',
+        body: data,
       }),
+      invalidatesTags: ['Todos'], // TODO
+    }),
 
-      getFoodsList: build.query({
-        query: () => 'v1/user/get-food-list',
+    updateUser: build.mutation({
+      query: ({ id, formData }) => ({
+        url: `v1/user/update?id=${id}`,
+        method: 'PUT',
+        body: formData,
       }),
+    }),
 
-      updateUser: build.mutation({
-        query: ({ id, formData }) => ({
-          url: `v1/user/update?id=${id}`,
-          method: 'PUT',
-          body: formData,
-        }),
+    deleteUser: build.mutation({
+      query: (id) => ({
+        url: `v1/user/delete?id=${id}`,
+        method: 'DELETE',
       }),
-
-      deleteUser: build.mutation({
-        query: (id) => ({
-          url: `v1/user/delete?id=${id}`,
-          method: 'DELETE',
-        }),
-        invalidatesTags: [{ type: 'Users', id: 'LIST' }],
-      }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
   }),
 })
 
-export const { useGetTodosQuery, useCreateTodoMutation } = todosApi
+export const {
+  useGetTodosQuery,
+  useCreateTodoMutation,
+  useGetTodoByIdQuery,
+  useUpdateTodoMutation,
+} = todosApi

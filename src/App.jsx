@@ -14,7 +14,7 @@ function App() {
         <Route path="/todos" element={<Header />}>
           <Route index element={<TodosPage />} />
           <Route path="new" element={<NewTodoPage />} />{' '}
-          <Route path=":id" element={<TodoInfoPage />} />{' '}
+          <Route path=":id" element={<NewTodoPage />} />{' '}
         </Route>
       </Routes>
     </BrowserRouter>
