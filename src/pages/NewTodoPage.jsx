@@ -44,12 +44,16 @@ const NewTodoPage = () => {
 
   const onSubmit = (data) => {
     if (id) {
-      updateTodo(id, data).unwrap()
+      updateTodo(id, data)
+        .unwrap()
+        .then(() => navigate('/todos'))
     } else {
-      createTodo(data).unwrap()
+      createTodo(data)
+        .unwrap()
+        .then(() => navigate('/todos'))
     }
     console.log(data)
-    navigate('/todos')
+    // navigate('/todos')
   }
 
   return (

@@ -1,10 +1,13 @@
+import { useState } from 'react'
+
 const Checkbox = ({ id, isCompleted, handleClick }) => {
+  const [isChecked, setIsChecked] = useState(isCompleted)
+  const handleCheckboxClick = (e) => {
+    handleClick(e, id)
+    setIsChecked(!isChecked)
+  }
   return (
-    <input
-      checked={isCompleted}
-      onClick={(e) => handleClick(e, id)}
-      type="checkbox"
-    />
+    <input checked={isChecked} onClick={handleCheckboxClick} type="checkbox" />
   )
 }
 
