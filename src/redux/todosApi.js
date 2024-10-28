@@ -44,12 +44,12 @@ export const todosApi = createApi({
       invalidatesTags: ['Todos'], // TODO
     }),
 
-    updateUser: build.mutation({
-      query: ({ id, formData }) => ({
-        url: `v1/user/update?id=${id}`,
+    todoComplitionToggle: build.mutation({
+      query: (id) => ({
+        url: `api/todos/toggle/${id}`,
         method: 'PUT',
-        body: formData,
       }),
+      invalidatesTags: ['Todos'], // TODO
     }),
 
     deleteUser: build.mutation({
@@ -67,4 +67,5 @@ export const {
   useCreateTodoMutation,
   useGetTodoByIdQuery,
   useUpdateTodoMutation,
+  useTodoComplitionToggleMutation,
 } = todosApi
