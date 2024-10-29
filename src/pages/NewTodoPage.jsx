@@ -11,6 +11,7 @@ import {
   useUpdateTodoMutation,
 } from '../redux/todosApi'
 import { useEffect } from 'react'
+import DatePickerCustom from '../components/ui/DatePickerCustom'
 
 registerLocale('ru', ru)
 
@@ -25,7 +26,12 @@ const TodoFormPage = () => {
   const [updateTodo] = useUpdateTodoMutation()
   const navigate = useNavigate()
 
-  const { handleSubmit, control, setValue } = useForm({
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       title: '',
       description: '',
@@ -37,7 +43,7 @@ const TodoFormPage = () => {
     if (isSuccess && todo) {
       setValue('title', todo.title)
       setValue('description', todo.description)
-      setValue('dueDate', new Date(todo.dueDate)) // Преобразуем дату в объект Date
+      setValue('dueDate', new Date(todo.dueDate))
     }
   }, [isSuccess, todo, setValue])
   if (isLoading) return <h1>Dibil</h1>
@@ -57,39 +63,53 @@ const TodoFormPage = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="main-div" onSubmit={handleSubmit(onSubmit)}>
       <div className="new-block">
         <Controller
           name="title"
           control={control}
-          render={({ field }) => <Input {...field} />}
+          rules={{ required: 'Поле обязательно' }}
+          render={({ field }) => (
+            <div className="error">
+              <Input {...field} placeholder="Название задачи" />
+              {errors.title && (
+                <span style={{ color: 'red', fontSize: '0.9rem' }}>
+                  {errors.title.message}
+                </span>
+              )}
+            </div>
+          )}
         />
         <Controller
           name="description"
           control={control}
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => (
+            <Input {...field} placeholder="Описание задачи" />
+          )}
         />
-        {/* <input className="new-input" type="text" /> */}
         <Controller
           name="dueDate"
           control={control}
+          rules={{ required: 'Поле обязательно' }}
           render={({ field }) => (
-            <DatePicker
-              {...field}
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-              locale="ru"
-              dateFormat="dd.MM.yyyy"
-              placeholderText="Выберите дату"
-              className="custom-date-input"
-            />
+            <div className="error">
+              <DatePickerCustom
+                {...field}
+                onChange={(date) => field.onChange(date)}
+              />
+              {errors.dueDate && (
+                <span style={{ color: 'red', fontSize: '0.9rem' }}>
+                  {errors.dueDate.message}
+                </span>
+              )}
+            </div>
           )}
         />
         {/* TODO */}
-        <button className="main-link" type="submit">
-          Сохранить задачу
-        </button>
       </div>
+      <button className="main-link" type="submit">
+        Сохранить задачу
+      </button>
     </form>
   )
 }
