@@ -2,20 +2,18 @@ import { Outlet, Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <div>
-      <header style={{ padding: '10px', backgroundColor: '#f5f5f5' }}>
-        <nav>
-          <Link to="/todos" style={{ marginRight: '15px' }}>
-            Tasks
-          </Link>
-          <Link to="/todos/new">Add New Task</Link>
+    <>
+      <header className="header">
+        <nav className="container header-nav">
+          <Link to="/todos">Задачи</Link>
+          <Link to="/todos/new">Добавить новую задачу</Link>
         </nav>
       </header>
 
-      <main style={{ marginBottom: '120px' }}>
+      <main className="container">
         <Outlet />
       </main>
-    </div>
+    </>
   )
 }
 

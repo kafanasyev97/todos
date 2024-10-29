@@ -1,12 +1,5 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
 html {
   box-sizing: border-box;
-  /* height: 100%; */
 }
 
 *,
@@ -50,9 +43,42 @@ p {
   padding: 0;
 }
 
-/* .main-div {
+.header {
+  padding: 15px;
+  background-color: rgb(245, 238, 238);
   margin-bottom: 40px;
-} */
+}
+
+.header-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  color: #fff;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.remove-button {
+  padding: 7px;
+  cursor: pointer;
+  background-color: rgb(235, 114, 114);
+  border-radius: 5px;
+}
+
+.aa {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.main-div {
+  width: 50%;
+  margin: 0 auto;
+}
 
 ul {
   display: flex;
@@ -63,11 +89,12 @@ ul {
 
 .elem {
   border: 1px solid rgb(102, 98, 98);
-  border-radius: 5px;
+  border-radius: 8px;
   padding: 8px;
-  background-color: rgb(240, 228, 228);
+  background-color: rgb(245, 239, 239);
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .main-link {

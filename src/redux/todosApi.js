@@ -32,7 +32,7 @@ export const todosApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Todos'], // TODO
+      invalidatesTags: ['Todos'],
     }),
 
     updateTodo: build.mutation({
@@ -41,7 +41,7 @@ export const todosApi = createApi({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['Todos'], // TODO
+      invalidatesTags: ['Todos'],
     }),
 
     todoComplitionToggle: build.mutation({
@@ -49,15 +49,15 @@ export const todosApi = createApi({
         url: `api/todos/toggle/${id}`,
         method: 'PUT',
       }),
-      invalidatesTags: ['Todos'], // TODO
+      invalidatesTags: ['Todos'],
     }),
 
-    deleteUser: build.mutation({
+    deleteTodo: build.mutation({
       query: (id) => ({
-        url: `v1/user/delete?id=${id}`,
+        url: `api/todos/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+      invalidatesTags: ['Todos'],
     }),
   }),
 })
@@ -68,4 +68,5 @@ export const {
   useGetTodoByIdQuery,
   useUpdateTodoMutation,
   useTodoComplitionToggleMutation,
+  useDeleteTodoMutation,
 } = todosApi

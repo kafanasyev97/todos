@@ -1,8 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import TodosPage from './pages/TodosPage'
-import NewTodoPage from './pages/NewTodoPage'
-import TodoInfoPage from './pages/TodoInfoPage'
+import TodoFormPage from './pages/NewTodoPage'
 import './App.css'
 
 function App() {
@@ -13,8 +12,8 @@ function App() {
 
         <Route path="/todos" element={<Header />}>
           <Route index element={<TodosPage />} />
-          <Route path="new" element={<NewTodoPage />} />{' '}
-          <Route path=":id" element={<NewTodoPage />} />{' '}
+          <Route path="new" element={<TodoFormPage />} />{' '}
+          <Route path=":id" element={<TodoFormPage />} />{' '}
         </Route>
       </Routes>
     </BrowserRouter>

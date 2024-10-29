@@ -14,7 +14,7 @@ import { useEffect } from 'react'
 
 registerLocale('ru', ru)
 
-const NewTodoPage = () => {
+const TodoFormPage = () => {
   const { id } = useParams()
   const {
     data: todo,
@@ -94,4 +94,4 @@ const NewTodoPage = () => {
   )
 }
 
-export default NewTodoPage
+export default TodoFormPage

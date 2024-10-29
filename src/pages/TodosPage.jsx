@@ -1,19 +1,26 @@
 import { Link } from 'react-router-dom'
 import {
+  useDeleteTodoMutation,
   useGetTodosQuery,
   useTodoComplitionToggleMutation,
 } from '../redux/todosApi'
-import Checkbox from '../components/ui/Checkbox'
+import Todo from '../components/Todo'
 
 const TodosPage = () => {
   const { data = [], isLoading } = useGetTodosQuery()
   const [changeComplitionTodo] = useTodoComplitionToggleMutation()
+  const [deleteTodo] = useDeleteTodoMutation()
 
-  if (isLoading) return <h1>Lox</h1>
-  if (!data) return <h1>Список задач пуст</h1>
+  if (isLoading) return <h1>Загрузка...</h1>
+  if (data.length === 0) return <h1>Список задач пуст</h1> // TODO
 
   const handleCheckboxClick = (event, id) => {
     changeComplitionTodo(id)
+    event.stopPropagation()
+  }
+
+  const handleRemoveButtonClick = (event, id) => {
+    deleteTodo(id)
     event.stopPropagation()
   }
 
@@ -21,16 +28,11 @@ const TodosPage = () => {
     <div className="main-div">
       <ul>
         {data.map((el) => (
-          <li className="elem" key={el.id}>
-            <Link to={`/todos/${el.id}`}>
-              <Checkbox
-                id={el.id}
-                isCompleted={el.isCompleted}
-                handleClick={handleCheckboxClick}
-              />
-              <div>{el.title}</div>
-            </Link>
-          </li>
+          <Todo
+            item={el}
+            handleCheckboxClick={handleCheckboxClick}
+            handleRemoveButtonClick={handleRemoveButtonClick}
+          />
         ))}
       </ul>
       <Link to="/todos/new" className="main-link">
