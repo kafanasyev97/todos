@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Checkbox from './ui/Checkbox'
+import Button from './ui/Button'
 
 const Todo = ({ item, handleCheckboxClick, handleRemoveButtonClick }) => {
   const navigate = useNavigate()
@@ -7,10 +8,9 @@ const Todo = ({ item, handleCheckboxClick, handleRemoveButtonClick }) => {
   return (
     <li
       onClick={() => navigate(`/todos/${item.id}`)}
-      className="elem"
-      key={item.id}
+      className="todo-list__item"
     >
-      <div className="aa">
+      <div className="todo-list__item-info">
         <Checkbox
           id={item.id}
           isCompleted={item.isCompleted}
@@ -18,14 +18,14 @@ const Todo = ({ item, handleCheckboxClick, handleRemoveButtonClick }) => {
         />
         <div>{item.title}</div>
       </div>
-      <div className="aa">
+      <div className="todo-list__item-info">
         <div>{new Date(item.dueDate).toLocaleDateString()}</div>
-        <button
-          className="remove-button"
-          onClick={(e) => handleRemoveButtonClick(e, item.id)}
+        <Button
+          classes="button button_remove"
+          handleClick={(e) => handleRemoveButtonClick(e, item.id)}
         >
           Удалить
-        </button>
+        </Button>
       </div>
     </li>
   )

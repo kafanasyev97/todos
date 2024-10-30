@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   useDeleteTodoMutation,
   useGetTodosQuery,
   useTodoComplitionToggleMutation,
 } from '../redux/todosApi'
 import Todo from '../components/Todo'
+import Button from '../components/ui/Button'
 
 const TodosPage = () => {
   const { data = [], isLoading } = useGetTodosQuery()
@@ -12,8 +13,7 @@ const TodosPage = () => {
   const [deleteTodo] = useDeleteTodoMutation()
   const navigate = useNavigate()
 
-  if (isLoading) return <h1>Загрузка...</h1>
-  if (data.length === 0) return <h1>Список задач пуст</h1> // TODO
+  if (isLoading) return <h2 className="loading">Загрузка...</h2>
 
   const handleCheckboxClick = (event, id) => {
     changeComplitionTodo(id)
@@ -26,26 +26,28 @@ const TodosPage = () => {
   }
 
   return (
-    <div className="main-div">
-      <ul>
-        {data.map((el) => (
-          <Todo
-            item={el}
-            handleCheckboxClick={handleCheckboxClick}
-            handleRemoveButtonClick={handleRemoveButtonClick}
-          />
-        ))}
-      </ul>
-      <button
-        onClick={() => navigate('/todos/new')}
-        className="main-link"
+    <div className={`page ${data.length === 0 ? 'empty-list' : ''}`}>
+      {data.length === 0 ? (
+        <h2>Список задач пуст</h2>
+      ) : (
+        <ul className="todo-list">
+          {data.map((el) => (
+            <Todo
+              key={el.id}
+              item={el}
+              handleCheckboxClick={handleCheckboxClick}
+              handleRemoveButtonClick={handleRemoveButtonClick}
+            />
+          ))}
+        </ul>
+      )}
+      <Button
+        handleClick={() => navigate('/todos/new')}
+        classes="button"
         type="text"
       >
         Новая задача
-      </button>
-      {/* <Link to="/todos/new" className="main-link">
-        Новая задача
-      </Link> */}
+      </Button>
     </div>
   )
 }

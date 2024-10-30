@@ -1,7 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import DatePicker from 'react-datepicker'
 import { useForm, Controller } from 'react-hook-form'
-import 'react-datepicker/dist/react-datepicker.css'
 import { ru } from 'date-fns/locale'
 import { registerLocale } from 'react-datepicker'
 import Input from '../components/ui/Input'
@@ -12,6 +10,8 @@ import {
 } from '../redux/todosApi'
 import { useEffect } from 'react'
 import DatePickerCustom from '../components/ui/DatePickerCustom'
+import Button from '../components/ui/Button'
+import 'react-datepicker/dist/react-datepicker.css'
 
 registerLocale('ru', ru)
 
@@ -58,24 +58,20 @@ const TodoFormPage = () => {
         .unwrap()
         .then(() => navigate('/todos'))
     }
-    console.log(data)
-    // navigate('/todos')
   }
 
   return (
-    <form className="main-div" onSubmit={handleSubmit(onSubmit)}>
-      <div className="new-block">
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form__fields">
         <Controller
           name="title"
           control={control}
           rules={{ required: 'Поле обязательно' }}
           render={({ field }) => (
-            <div className="error">
+            <div className="form__field">
               <Input {...field} placeholder="Название задачи" />
               {errors.title && (
-                <span style={{ color: 'red', fontSize: '0.9rem' }}>
-                  {errors.title.message}
-                </span>
+                <span className="error">{errors.title.message}</span>
               )}
             </div>
           )}
@@ -92,7 +88,7 @@ const TodoFormPage = () => {
           control={control}
           rules={{ required: 'Поле обязательно' }}
           render={({ field }) => (
-            <div className="error">
+            <div className="form__field">
               <DatePickerCustom
                 {...field}
                 onChange={(date) => field.onChange(date)}
@@ -105,11 +101,10 @@ const TodoFormPage = () => {
             </div>
           )}
         />
-        {/* TODO */}
       </div>
-      <button className="main-link" type="submit">
+      <Button classes="button" type="submit">
         Сохранить задачу
-      </button>
+      </Button>
     </form>
   )
 }
