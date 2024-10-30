@@ -13,4 +13,6 @@ const Input = forwardRef(({ value, onChange, placeholder }, ref) => {
   )
 })
 
+Input.displayName = 'InputCustom'
+
 export default Input
